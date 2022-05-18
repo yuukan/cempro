@@ -1,0 +1,2 @@
+ALTER TABLE `au_empresa` ADD COLUMN `web` VARCHAR(255) NULL DEFAULT NULL AFTER `default`;
+

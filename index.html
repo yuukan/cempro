@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firma</title>
+
+    <script src="https://pixijs.download/release/pixi.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="center-me">
+        <div class="check-container">
+            <label class="pure-material-checkbox">
+                <input type="checkbox" id="default">
+                <span>Usar imagen de empresa <strong>Principal</strong>.</span>
+            </label>
+        </div>
+        <br><br>
+        <span class="container">
+            <label class="has-float-label">
+                <input placeholder=" " id="usuario" type="text" required="required">
+                <span class="label">Email *</span>
+            </label>
+        </span>
+        <button class="pure-material-button-contained" onclick="getInfo()">Obtener info</button>
+        <div class="check-container">
+            <label class="pure-material-checkbox">
+                <input type="checkbox" id="cel">
+                <span>Agregar <strong>Celular</strong> en lugar de tel&eacute;fono fijo.</span>
+            </label>
+        </div>
+        <div class="imagen"></div>
+        <div class="send">
+            <button id="descargar" class="pure-material-button-contained" onclick="download()">Descargar
+                Firma
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Dirección del backend
+        // let url = "https://www.firmasdev.progreso.com/public/";
+        let url = "http://192.168.1.197/firmas/public/";
+        let app = new PIXI.Application({ width: 1024, height: 171, preserveDrawingBuffer: true, backgroundColor: 0xffffff });
+        document.querySelector(".imagen").appendChild(app.view);
+        let sprite, richText, puesto, tel, correo, dir, page;
+
+        function getInfo() {
+            // Dirección del info.php
+            // $.get("https://www.firmasdev.progreso.com/FirmaElectronicaAdmin/info.php?us=" + $("#usuario").val(), function (data) {
+            $.get("http://localhost:8000/info.php?us=" + $("#usuario").val(), function (data) {
+
+                let principal = 'no';
+                if ($("#default").prop("checked") && data.default !== '') {
+                    principal = 'si';
+                }
+                $.get(url + "api/get-company?company=" + data.company + "&office=" + data.office + "&principal=" + principal, function (data2) {
+                    // Remove elements
+                    app.stage.removeChild(sprite);
+                    app.stage.removeChild(richText);
+                    app.stage.removeChild(puesto);
+                    app.stage.removeChild(tel);
+                    app.stage.removeChild(correo);
+                    app.stage.removeChild(dir);
+                    app.stage.removeChild(page);
+                    // app.stage.removeChild(richText);
+
+                    // Add Elements
+                    sprite = PIXI.Sprite.from(url + data2.imagen);
+                    app.stage.addChild(sprite);
+
+                    let nameColor = "#54b948";
+                    let grayColor = "#5f6062";
+
+                    nameColor = data2.colorNombre;
+
+                    const style = new PIXI.TextStyle({
+                        fontFamily: 'Arial',
+                        fontSize: 18,
+                        wordWrap: false,
+                        wordWrapWidth: 440,
+                        fill: nameColor
+                    });
+
+                    const style2 = new PIXI.TextStyle({
+                        fontFamily: 'Arial',
+                        fontSize: 14,
+                        wordWrap: false,
+                        wordWrapWidth: 440,
+                        fontWeight: 'normal',
+                        fill: grayColor
+                    });
+
+                    const style3 = new PIXI.TextStyle({
+                        fontFamily: 'Arial',
+                        fontSize: 12,
+                        wordWrap: true,
+                        wordWrapWidth: 430,
+                        fill: grayColor
+                    });
+
+                    richText = new PIXI.Text(data.nombre, style);
+                    richText.x = 310;
+                    richText.y = 35;
+                    app.stage.addChild(richText);
+
+                    puesto = new PIXI.Text(data.posicion, style2);
+                    puesto.x = 310;
+                    puesto.y = 60;
+                    app.stage.addChild(puesto);
+
+                    let phone = data2.pbx + " ext. " + data.ext;
+                    if (data.ext === null) {
+                        phone = data2.pbx;
+                    }
+
+                    if ($("#cel").prop("checked") && data.cel !== '') {
+                        phone = data.cel;
+                    }
+
+                    tel = new PIXI.Text(phone, style3);
+                    tel.x = 310;
+                    tel.y = 80;
+                    app.stage.addChild(tel);
+
+                    correo = new PIXI.Text(data.email, style3);
+                    correo.x = 310;
+                    correo.y = 95;
+                    app.stage.addChild(correo);
+
+                    dir = new PIXI.Text(data2.direccion, style3);
+                    dir.x = 310;
+                    dir.y = 110;
+                    app.stage.addChild(dir);
+
+                    page = new PIXI.Text(data2.web, style3);
+                    page.x = 310;
+                    page.y = 125;
+                    app.stage.addChild(page);
+                });
+            });
+
+        }
+
+        function download() {
+            const download = document.querySelector('canvas');
+            var gl = download.getContext("webgl", { preserveDrawingBuffer: true });
+
+            const link = document.createElement('a');
+            link.download = 'firma.png';
+            link.href = download.toDataURL('image/jpeg', 1.0);
+            link.click();
+            link.delete;
+        }
+
+        function getCompany(company) {
+            $.get(url + "api/get-company?company=" + company, function (data) {
+                return data;
+            });
+        }
+
+    </script>
+</body>
+
+</html>

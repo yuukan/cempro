@@ -1,0 +1,400 @@
+html {
+    font-family: "Roboto", sans-serif;
+    line-height: 1;
+    background-color: #fff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.has-float-label {
+    display: block;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.has-float-label input:hover:not(:disabled):not(:focus) {
+    border-bottom: 2px solid #1e1e1e !important;
+}
+
+.has-float-label input[value=""] {
+    border-top: 2px solid #1e1e1e !important;
+}
+
+.has-float-label input:hover:invalid:not(:placeholder-shown):not(:focus) {
+    border-bottom: 2px solid #ff1744 !important;
+}
+
+.has-float-label input:focus {
+    border-bottom: 2px solid #2979ff;
+    transition: all 0.2s;
+}
+
+.has-float-label input:invalid:not(:focus) {
+    border-bottom: 2px solid #ff1744;
+}
+
+.has-float-label input:placeholder-shown:not(:focus) {
+    border-bottom: 2px solid #8a8a8a;
+}
+
+.has-float-label input:disabled {
+    border-bottom: 2px dotted #8a8a8a !important;
+    pointer-events: none;
+    background-color: inherit;
+}
+
+.has-float-label input {
+    font-size: inherit;
+    padding: 16px 0 8px 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: initial;
+    color: #2c2c2c;
+    caret-color: #2979ff;
+    border-bottom: 2px solid #8a8a8a;
+}
+
+input {
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 1.15;
+    margin: 0;
+    outline: none;
+    width: 100%;
+}
+
+.has-float-label input:placeholder-shown:not(:focus) + .label {
+    font-size: 16px;
+    top: 20px;
+    color: #838383;
+}
+
+.has-float-label label,
+.has-float-label > .label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: text;
+    font-size: 12px;
+    color: #6d6d6d;
+    transition: all 0.2s;
+    pointer-events: none;
+}
+
+.has-float-label input:invalid ~ .label {
+    color: #ff1744;
+}
+
+.has-float-label input:focus ~ .label {
+    color: #2979ff;
+}
+
+.has-float-label input:invalid:not(:focus):not(:placeholder-shown) ~ .error {
+    display: block;
+}
+
+.error {
+    color: #ff1744;
+    display: none;
+}
+
+.has-float-label input:invalid:not(:focus):not(:placeholder-shown) ~ .helper {
+    display: none;
+}
+
+.helper {
+    display: block;
+    color: #6d6d6d;
+}
+
+.helper,
+.error {
+    font-size: 12px;
+    padding-top: 8px;
+    line-height: 1;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited input:invalid:not(:focus) {
+    border-bottom: 2px solid red !important;
+}
+
+a:visited .helper {
+    color: #eee;
+}
+
+.center-me {
+    width: 100%;
+    text-align: center;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.container {
+    width: 300px;
+    display: inline-block;
+    text-align: left;
+}
+
+.pure-material-button-contained {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    padding: 0 16px;
+    min-width: 64px;
+    height: 36px;
+    vertical-align: middle;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    background-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    font-family: var(--pure-material-font, "Roboto", "Segoe UI", BlinkMacSystemFont, system-ui, -apple-system);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 36px;
+    overflow: hidden;
+    outline: none;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.pure-material-button-contained::-moz-focus-inner {
+    border: none;
+}
+
+/* Overlay */
+.pure-material-button-contained::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+/* Ripple */
+.pure-material-button-contained::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    padding: 50%;
+    width: 32px;
+    /* Safari */
+    height: 32px;
+    /* Safari */
+    background-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+    transition: opacity 1s, transform 0.5s;
+}
+
+/* Hover, Focus */
+.pure-material-button-contained:hover,
+.pure-material-button-contained:focus {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.pure-material-button-contained:hover::before {
+    opacity: 0.08;
+}
+
+.pure-material-button-contained:focus::before {
+    opacity: 0.24;
+}
+
+.pure-material-button-contained:hover:focus::before {
+    opacity: 0.3;
+}
+
+/* Active */
+.pure-material-button-contained:active {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.pure-material-button-contained:active::after {
+    opacity: 0.32;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0s;
+}
+
+/* Disabled */
+.pure-material-button-contained:disabled {
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.12);
+    box-shadow: none;
+    cursor: initial;
+}
+
+.pure-material-button-contained:disabled::before {
+    opacity: 0;
+}
+
+.pure-material-button-contained:disabled::after {
+    opacity: 0;
+}
+.pure-material-button-contained#descargar {
+    margin-top: 50px;
+    background: #55b949;
+}
+/* Checkbox */
+.pure-material-checkbox {
+    z-index: 0;
+    position: relative;
+    display: inline-block;
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+    font-family: var(--pure-material-font, "Roboto", "Segoe UI", BlinkMacSystemFont, system-ui, -apple-system);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Input */
+.pure-material-checkbox > input {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    z-index: -1;
+    position: absolute;
+    left: -10px;
+    top: -8px;
+    display: block;
+    margin: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    box-shadow: none;
+    outline: none;
+    opacity: 0;
+    transform: scale(1);
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.2s;
+}
+
+/* Span */
+.pure-material-checkbox > span {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Box */
+.pure-material-checkbox > span::before {
+    content: "";
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 3px 11px 3px 1px;
+    border: solid 2px; /* Safari */
+    border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    border-radius: 2px;
+    width: 18px;
+    height: 18px;
+    vertical-align: top;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+/* Checkmark */
+.pure-material-checkbox > span::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 10px;
+    height: 5px;
+    border: solid 2px transparent;
+    border-right: none;
+    border-top: none;
+    transform: translate(3px, 4px) rotate(-45deg);
+}
+
+/* Checked, Indeterminate */
+.pure-material-checkbox > input:checked,
+.pure-material-checkbox > input:indeterminate {
+    background-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+}
+
+.pure-material-checkbox > input:checked + span::before,
+.pure-material-checkbox > input:indeterminate + span::before {
+    border-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+    background-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+}
+
+.pure-material-checkbox > input:checked + span::after,
+.pure-material-checkbox > input:indeterminate + span::after {
+    border-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+}
+
+.pure-material-checkbox > input:indeterminate + span::after {
+    border-left: none;
+    transform: translate(4px, 3px);
+}
+
+/* Hover, Focus */
+.pure-material-checkbox:hover > input {
+    opacity: 0.04;
+}
+
+.pure-material-checkbox > input:focus {
+    opacity: 0.12;
+}
+
+.pure-material-checkbox:hover > input:focus {
+    opacity: 0.16;
+}
+
+/* Active */
+.pure-material-checkbox > input:active {
+    opacity: 1;
+    transform: scale(0);
+    transition: transform 0s, opacity 0s;
+}
+
+.pure-material-checkbox > input:active + span::before {
+    border-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+}
+
+.pure-material-checkbox > input:checked:active + span::before {
+    border-color: transparent;
+    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+}
+
+/* Disabled */
+.pure-material-checkbox > input:disabled {
+    opacity: 0;
+}
+
+.pure-material-checkbox > input:disabled + span {
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+    cursor: initial;
+}
+
+.pure-material-checkbox > input:disabled + span::before {
+    border-color: currentColor;
+}
+
+.pure-material-checkbox > input:checked:disabled + span::before,
+.pure-material-checkbox > input:indeterminate:disabled + span::before {
+    border-color: transparent;
+    background-color: currentColor;
+}
+
+/* Checkbox */
+.imagen {
+    margin-top: 50px;
+}
